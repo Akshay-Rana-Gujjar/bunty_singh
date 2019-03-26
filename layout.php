@@ -22,13 +22,13 @@
 		die("Connection failed: " . mysqli_connect_error());
 		}
 		
-		$getImageQuery = "select url from `Stock` where category = 'test'";
+		$getImageQuery = "select image_name, count(1) from `tbl_images`";
 		
 		$result = mysqli_query($conn, $getImageQuery);
 		
 		while($row = $result->fetch_assoc()) {
-			echo $row["url"];
-			echo "<img src='".$row["url"]."'/>";
+			echo $row["image_name"];
+			echo "<img src='uploads/".$row["image_name"]."'/>";
 		}
 		
 		mysqli_close($conn);
