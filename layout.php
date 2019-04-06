@@ -19,16 +19,16 @@
 		
 		// Check connection
 		if (!$conn) {
-		die("Connection failed: " . mysqli_connect_error());
+			die("Connection failed: " . mysqli_connect_error());
 		}
 		
-		$getImageQuery = "select url from `Stock` where category = 'test'";
+		$getImageQuery = "select image_name from `tbl_images`";
 		
 		$result = mysqli_query($conn, $getImageQuery);
 		
 		while($row = $result->fetch_assoc()) {
-			echo $row["url"];
-			echo "<img src='".$row["url"]."'/>";
+			echo $row["image_name"];
+			echo "<img src='uploads/thumb/".$row["image_name"]."'/>";
 		}
 		
 		mysqli_close($conn);
@@ -79,6 +79,7 @@
 				<!--Start From Here-->
 				<div class="bron">
 					<div class="row">
+					<!-- First row, having 2 small pic and 1 large pic. -->
 						<div class="col-4">
 							<div class="bisk">
 								<div class="bisk1">
@@ -98,6 +99,7 @@
 				</div>
 				<div class="bron">
 					<div class="row">
+					<!-- having 3 small pics -->
 						<div class="col-4">
 							<div class="bisk">
 								<div class="bisk1">
@@ -130,6 +132,7 @@
 				</div>
 				<div class="bron">
 					<div class="row">
+					<!--  -->
 						<div class="col-8">
 							<div class="bisk5">
 								<div class="nits">
