@@ -103,8 +103,8 @@ function thousandsCurrencyFormat($num)
             <div class="row">
                 <div class="col-6">
 
-                        <div class="like" onclick="myFunction()">
-                            <i id="like-icon" class="far fa-heart" data-img_id = "<?php echo $img_id; ?>"></i>
+                        <div class="like" onclick="myFunction(event)">
+                            <i id="like-icon" class="far fa-heart" data-img_id = "<?php echo $img_id; ?>" 0onclick="event.stopPropagation();"></i>
                              &nbsp; &nbsp; &nbsp; &nbsp;
                              <span id="like_count"><?php echo thousandsCurrencyFormat($like_count) ?></span> Likes</div>
 
@@ -173,10 +173,21 @@ function thousandsCurrencyFormat($num)
         </div>
 
         <script>
-		function myFunction () {
+
+            var isLiked = false;
+
+		function myFunction (event) {
 
 
-            $.ajax({
+
+            event.target.style.pointerEvents = 'none';
+            
+            if(!isLiked){
+
+                $("#like-icon").removeClass().addClass('fa-heart fas colr like-animation'); //fa-heart fas colr
+                $("#like_count").html(parseInt($("#like_count").html())+1);
+
+                $.ajax({
                 url: '/like_count.php',
                 type: 'PUT',
                 headers: {
@@ -185,14 +196,45 @@ function thousandsCurrencyFormat($num)
                 data: JSON.stringify({"img_id" : $("#like-icon").data("img_id")}),
                 success: function(data) {
                     // $(that).toggleClass('far fas colr'); fa-heart fas colr
-                    $("#like-icon").removeClass().addClass('fa-heart fas colr like-animation'); //fa-heart fas colr
-                    $("#like_count").html(parseInt($("#like_count").html())+1);
-                    setTimeout(() => {
-                        $("#like-icon").removeClass("like-animation");
-                    }, 1000);
+                   
+                    // setTimeout(() => {
+                        
+                        // $("#like-icon").removeClass("like-animation");
+                        isLiked = true;
+                        event.target.style.pointerEvents = 'auto';
+                    // }, 1000);
 
                     }
                 });
+
+            }else{
+                $("#like-icon").removeClass().addClass('far fa-heart like-animation'); //fa-heart fas colr
+                $("#like_count").html(parseInt($("#like_count").html())-1);
+
+                $.ajax({
+                url: '/unlike_count.php',
+                type: 'PUT',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                data: JSON.stringify({"img_id" : $("#like-icon").data("img_id")}),
+                success: function(data) {
+                    // $(that).toggleClass('far fas colr'); fa-heart fas colr
+                    
+                    // setTimeout(() => {
+                        
+                        // $("#like-icon").removeClass("like-animation");
+                        isLiked = false;
+                        event.target.style.pointerEvents = 'auto';
+                    // }, 1000);
+
+                    }
+                });
+
+            }
+
+
+            
 
 
         };
