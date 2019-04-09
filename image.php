@@ -150,25 +150,26 @@ function thousandsCurrencyFormat($num)
 
            <div class="row">
                 <div class="scroll">
-                <div class="btn">
-                    <div class="btn2">
-                        HD BACKGROUNDS
+                    <div class="btn">
+                        <div class="btn2">
+                            HD BACKGROUNDS
+                        </div>
                     </div>
-                </div>
-                <div class="btn">
-                    <div class="btn2">
-                        HD
+                    <div class="btn">
+                        <div class="btn2">
+                            HD
+                        </div>
                     </div>
-                </div>
-                <div class="btn">
-                    <div class="btn2">
-                        HD BACKGROUNDS
+                    <div class="btn">
+                        <div class="btn2">
+                            HD BACKGROUNDS
+                        </div>
                     </div>
-                </div>
 
 
-            </div>
+                </div>
            </div>
+           
 
         </div>
 
@@ -183,8 +184,8 @@ function thousandsCurrencyFormat($num)
             console.log(event.target.style.pointerEvents);
             if(event.target.style.pointerEvents == 'none') return;
             event.target.style.pointerEvents = 'none';
-            
-            
+
+
             if(shouldExecute){
                 shouldExecute=false;
 
