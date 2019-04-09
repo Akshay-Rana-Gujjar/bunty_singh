@@ -175,68 +175,72 @@ function thousandsCurrencyFormat($num)
         <script>
 
             var isLiked = false;
+            var shouldExecute = true;
 
 		function myFunction (event) {
 
 
-
+            console.log(event.target.style.pointerEvents);
+            if(event.target.style.pointerEvents == 'none') return;
             event.target.style.pointerEvents = 'none';
             
-            if(!isLiked){
-
-                $("#like-icon").removeClass().addClass('fa-heart fas colr like-animation'); //fa-heart fas colr
-                $("#like_count").html(parseInt($("#like_count").html())+1);
-
-                $.ajax({
-                url: '/like_count.php',
-                type: 'PUT',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                data: JSON.stringify({"img_id" : $("#like-icon").data("img_id")}),
-                success: function(data) {
-                    // $(that).toggleClass('far fas colr'); fa-heart fas colr
-                   
-                    // setTimeout(() => {
-                        
-                        // $("#like-icon").removeClass("like-animation");
-                        isLiked = true;
-                        event.target.style.pointerEvents = 'auto';
-                    // }, 1000);
-
-                    }
-                });
-
-            }else{
-                $("#like-icon").removeClass().addClass('far fa-heart like-animation'); //fa-heart fas colr
-                $("#like_count").html(parseInt($("#like_count").html())-1);
-
-                $.ajax({
-                url: '/unlike_count.php',
-                type: 'PUT',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                data: JSON.stringify({"img_id" : $("#like-icon").data("img_id")}),
-                success: function(data) {
-                    // $(that).toggleClass('far fas colr'); fa-heart fas colr
-                    
-                    // setTimeout(() => {
-                        
-                        // $("#like-icon").removeClass("like-animation");
-                        isLiked = false;
-                        event.target.style.pointerEvents = 'auto';
-                    // }, 1000);
-
-                    }
-                });
-
-            }
-
-
             
+            if(shouldExecute){
+                shouldExecute=false;
 
+                if(!isLiked){
 
+                    $("#like-icon").removeClass().addClass('fa-heart fas colr like-animation'); //fa-heart fas colr
+                    $("#like_count").html(parseInt($("#like_count").html())+1);
+
+                    $.ajax({
+                    url: '/like_count.php',
+                    type: 'PUT',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: JSON.stringify({"img_id" : $("#like-icon").data("img_id")}),
+                    success: function(data) {
+                        // $(that).toggleClass('far fas colr'); fa-heart fas colr
+                            isLiked = true;
+                            event.target.style.pointerEvents = 'auto';
+                            shouldExecute=true;
+                        setTimeout(() => {
+
+                            $("#like-icon").removeClass("like-animation");
+
+                        }, 1000);
+
+                        }
+                    });
+
+                }else{
+                    $("#like-icon").removeClass().addClass('far fa-heart like-animation'); //fa-heart fas colr
+                    $("#like_count").html(parseInt($("#like_count").html())-1);
+
+                    $.ajax({
+                    url: '/unlike_count.php',
+                    type: 'PUT',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: JSON.stringify({"img_id" : $("#like-icon").data("img_id")}),
+                    success: function(data) {
+                        // $(that).toggleClass('far fas colr'); fa-heart fas colr
+                            isLiked = false;
+                            event.target.style.pointerEvents = 'auto';
+                            shouldExecute=true;
+                        setTimeout(() => {
+
+                            $("#like-icon").removeClass("like-animation");
+
+                        }, 1000);
+
+                        }
+                    });
+
+                }
+            }
         };
 
         function downloadImage(url){
@@ -252,10 +256,10 @@ function thousandsCurrencyFormat($num)
                 },
                 data:  JSON.stringify({"img_id" : $("#like-icon").data("img_id")}),
                 success: function(data) {
-                    
+
 
                     $("#download_count").html(parseInt($("#download_count").html())+1);
-                    
+
                     },
 
                     error: function (jqXHR, exception) {
