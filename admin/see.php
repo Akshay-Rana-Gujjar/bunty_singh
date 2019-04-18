@@ -1,10 +1,42 @@
 <?php
 
+
+
+
 $db = mysqli_connect('localhost', 'admin_root', 'admin_root', 'admin_root');
-if (file_exists("constants.php")) {
-    require "./constants.php";
+if (file_exists("../constants.php")) {
+    require "../constants.php";
     $db = mysqli_connect($servername, $username, $password, $dbname);
 }
+
+
+if(isset($_POST["id"])){
+	$category_id = $_POST["id"];
+	$category_name = $_POST["category_name"];
+	$category_image = $_POST["category_img_src"];
+
+$updateQuery = "update category set category_name = '$category_name' where id = $category_id";
+
+if(mysqli_query($db, $updateQuery)){
+	echo "Updated!!";
+	header("Location: ".$_SERVER['PHP_SELF']);
+    exit;
+};
+
+
+}elseif(isset($_POST["delete"])){
+	$delete_id = $_POST["delete"];
+	$deleteQuery = "delete from category where id = $delete_id";
+
+	if(mysqli_query($db, $deleteQuery)){
+		echo "Updated!!";
+		header("Location: ".$_SERVER['PHP_SELF']);
+		exit;
+	};
+
+}
+
+
 $sql1 = "SELECT * FROM category ORDER BY id";
 $result1 = mysqli_query($db, $sql1);
 $resultCheck1 = mysqli_num_rows($result1);
@@ -36,26 +68,32 @@ $resultCheck1 = mysqli_num_rows($result1);
 					$cat = $row['category_name'];
 					$id = $row['id'];
 
-					echo '<div class="card" style="">
-					<img src="'.$src.'" class="card-img-top" alt="...">
+				?>	
+					
+					<div class="card" style="">
+					<img src="<?php echo $src ?>" class="card-img-top" alt="...">
 					<div class="card-body">
-					  <div class="card-title">'.$cat.'</div>
-						  <div  class="btn-group " style role="group"  data-cat-data="{id:'.$id.', src:'."'".$scr."'".', name:'."'".'}">  
+					  <div class="card-title"><?php echo $cat ?></div>
+						  <div  class="btn-group " style role="group"  data-id="<?php echo $id ?>" data-src='<?php echo $src ?>' data-name='<?php echo $cat ?>'>  
 								<button type="button" class="btn btn-light" onclick="editCategory(this)"> 
 									<i class="zmdi zmdi-edit"></i>
 
 								</button>
-								<button type="button" class="btn btn-danger"> 
-									<i class="zmdi zmdi-delete"></i>
+								<form action="see.php" method="post">
+									<button type="submit" value="<?php echo $id ?>" name="delete" class="btn btn-danger"> 
+										<i class="zmdi zmdi-delete"></i>
 
-								</button>
+									</button>
+								</form>
 								
 								</div>
 					  
 
 					</div>
-				  </div>';
-					
+				  </div>
+
+				  	
+				<?php	
 					echo '</div>';
 				}
 			?>
@@ -84,10 +122,6 @@ $resultCheck1 = mysqli_num_rows($result1);
 						<button type="submit" class="btn btn-primary mt-1">Save changes</button>
 					</form>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
 				</div>
 			</div>
 		</div>
@@ -98,13 +132,27 @@ $resultCheck1 = mysqli_num_rows($result1);
 		<script>
 
 				function editCategory(button){
-					console.log($(button).parent().data("cat-id"));
-					var CATEGORY_ID = $(button).parent().data("cat-id");
+					
+					var data = function(a){
+						return $(button).parent().data(a);
+					}
+					
+					
+					console.log($(button).parent().data("id"));
+					
+					var CATEGORY_ID = data('id');
+					var CATEGORY_NAME = data('name');
+					var CATEGORY_SRC = data('src');
+					console.log(CATEGORY_ID, CATEGORY_NAME, CATEGORY_SRC);
 					var category_id = $("#category_id");
 					var category_img = $("#category_img");
 					var category_name = $("#category_name");
 
+					// console.log(category_id,category_img,category_name);
+
 					category_id.val(CATEGORY_ID);
+					category_img.attr("src", CATEGORY_SRC)
+					category_name.val(CATEGORY_NAME);
 					
 
 
