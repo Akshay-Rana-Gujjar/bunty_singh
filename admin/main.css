@@ -34,11 +34,11 @@ box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.66);
 	height: 140px;
 	width: 100%;
 	-webkit-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.66);
--moz-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.66);
-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.66);
+	-moz-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.66);
+	box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.66);
 }
 
 .pch{
-    padding-top: 8px;
-    padding-bottom: 8px;
+	padding-top: 8px;
+	padding-bottom: 8px;
 }

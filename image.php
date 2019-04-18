@@ -5,7 +5,7 @@ if (isset($_REQUEST['category'])) {
     $search = $_REQUEST['category'];
 }
 
-$db = mysqli_connect('localhost', 'admin_imagedb', 'admin_imagedb', 'admin_imagedb');
+$db = mysqli_connect('localhost', 'admin_root', 'admin_root', 'admin_root');
 if (file_exists("constants.php")) {
     require "./constants.php";
     $db = mysqli_connect($servername, $username, $password, $dbname);
@@ -78,6 +78,7 @@ function thousandsCurrencyFormat($num)
     <head>
         <title>Images</title>
         <link rel="stylesheet" href="image.css">
+	<link rel="stylesheet" href="poses/main.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css?family=Acme|Anton" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
@@ -85,16 +86,18 @@ function thousandsCurrencyFormat($num)
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
 
     </head>
     <body>
+<div class="content-wrapper">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="image">
-                        <img src="<?php echo $image_url; ?>" alt="" class="images">
+                        <img src="img/loader.gif"  data-echo="<?php echo $image_url; ?>" alt="" class="images">
                     </div>
                 </div>
             </div>
@@ -103,12 +106,12 @@ function thousandsCurrencyFormat($num)
             <div class="row">
                 <div class="col-6">
 
-                        <div class="like" onclick="myFunction(event)">
-                            <i id="like-icon" class="far fa-heart" data-img_id = "<?php echo $img_id; ?>" 0onclick="event.stopPropagation();"></i>
-                             &nbsp; &nbsp; &nbsp; &nbsp;
-                             <span id="like_count"><?php echo thousandsCurrencyFormat($like_count) ?></span> Likes</div>
+                    <div class="like" onclick="myFunction(event)">
+                        <i id="like-icon" class="far fa-heart" data-img_id = "<?php echo $img_id; ?>" 0onclick="event.stopPropagation();"></i>
+                        &nbsp; &nbsp; &nbsp; &nbsp;
+                        <span id="like_count"><?php echo thousandsCurrencyFormat($like_count) ?></span> Likes</div>
 
-                        </div>
+                </div>
 
                 <div class="col-6"><div class="save" >&nbsp;<span id="download_count"><?php echo thousandsCurrencyFormat($download_count) ?></span> Downloads</div></div>
 
@@ -121,7 +124,7 @@ function thousandsCurrencyFormat($num)
             <div class="mycard">
                 <div class="card">
                     <div class="card-body">
-                       <div class="adi">Photo Information</div>
+                        <div class="adi">Photo Information</div>
                         Below we have listed some special Independence day background which looks great with your photos you can use this background with your photos and show your cool photos to friends and family and you can thank us.
                     </div>
                 </div>
@@ -129,17 +132,17 @@ function thousandsCurrencyFormat($num)
 
             <div class="simi">SIMILAR IMAGES</div>
             <div class="myimg">
-                <div class="similarimg"><img src="car%20(32).jpg" alt="" class="simg"></div>
-                <div class="similarimg"><img src="car%20(32).jpg" alt="" class="simg"></div>
-                <div class="similarimg"><img src="car%20(32).jpg" alt="" class="simg"></div>
-                <div class="similarimg"><img src="car%20(32).jpg" alt="" class="simg"></div>
-                <div class="similarimg"><img src="car%20(32).jpg" alt="" class="simg"></div>
+                <div class="similarimg"><img src="img/car%20(32).jpg" alt="" class="simg"></div>
+                <div class="similarimg"><img src="img/car%20(32).jpg" alt="" class="simg"></div>
+                <div class="similarimg"><img src="img/car%20(32).jpg" alt="" class="simg"></div>
+                <div class="similarimg"><img src="img/car%20(32).jpg" alt="" class="simg"></div>
+                <div class="similarimg"><img src="img/car%20(32).jpg" alt="" class="simg"></div>
             </div>
 
-             <div class="mycard">
+            <div class="mycard">
                 <div class="card">
                     <div class="card-body">
-                       <div class="adi">Photo Information</div>
+                        <div class="adi">Photo Information</div>
                         Below we have listed some special Independence day background which looks great with your photos you can use this background with your photos and show your cool photos to friends and family and you can thank us.
                     </div>
                 </div>
@@ -148,114 +151,135 @@ function thousandsCurrencyFormat($num)
                 <p>CATEGORIES</p>
             </div>
 
-           <div class="row">
+            <div class="row">
                 <div class="scroll">
-                <div class="btn">
-                    <div class="btn2">
-                        HD BACKGROUNDS
+                    <div class="btn">
+                        <div class="btn2">
+                            HD BACKGROUNDS
+                        </div>
                     </div>
-                </div>
-                <div class="btn">
-                    <div class="btn2">
-                        HD
+                    <div class="btn">
+                        <div class="btn2">
+                            HD
+                        </div>
                     </div>
-                </div>
-                <div class="btn">
-                    <div class="btn2">
-                        HD BACKGROUNDS
+                    <div class="btn">
+                        <div class="btn2">
+                            HD BACKGROUNDS
+                        </div>
                     </div>
-                </div>
 
 
+                </div>
             </div>
-           </div>
 
         </div>
+
+ <div class="menu-bar-wrapper">
+                <div class="menu-bar active"><i class="fa fa-home" aria-hidden="true"></i>
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    <i class="fa fa-heart" aria-hidden="true"></i>
+                    <i class="fa fa-user active" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
+        <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+        <script src='http://use.fontawesome.com/f09496b7cc.js'></script>
+
+
+
+        <script  src="poses/js/index.js"></script>
+
 
         <script>
 
             var isLiked = false;
+            var shouldExecute = true;
 
-		function myFunction (event) {
+            function myFunction (event) {
 
 
+                console.log(event.target.style.pointerEvents);
+                if(event.target.style.pointerEvents == 'none') return;
+                event.target.style.pointerEvents = 'none';
 
-            event.target.style.pointerEvents = 'none';
-            
-            if(!isLiked){
 
-                $("#like-icon").removeClass().addClass('fa-heart fas colr like-animation'); //fa-heart fas colr
-                $("#like_count").html(parseInt($("#like_count").html())+1);
+                if(shouldExecute){
+                    shouldExecute=false;
 
-                $.ajax({
-                url: '/like_count.php',
-                type: 'PUT',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                data: JSON.stringify({"img_id" : $("#like-icon").data("img_id")}),
-                success: function(data) {
-                    // $(that).toggleClass('far fas colr'); fa-heart fas colr
-                   
-                    // setTimeout(() => {
-                        
-                        // $("#like-icon").removeClass("like-animation");
-                        isLiked = true;
-                        event.target.style.pointerEvents = 'auto';
-                    // }, 1000);
+                    if(!isLiked){
+
+                        $("#like-icon").removeClass().addClass('fa-heart fas colr like-animation'); //fa-heart fas colr
+                        $("#like_count").html(parseInt($("#like_count").html())+1);
+
+                        $.ajax({
+                            url: '/like_count.php',
+                            type: 'PUT',
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            data: JSON.stringify({"img_id" : $("#like-icon").data("img_id")}),
+                            success: function(data) {
+                                // $(that).toggleClass('far fas colr'); fa-heart fas colr
+                                isLiked = true;
+                                event.target.style.pointerEvents = 'auto';
+                                shouldExecute=true;
+                                setTimeout(() => {
+
+                                    $("#like-icon").removeClass("like-animation");
+
+                                }, 1000);
+
+                            }
+                        });
+
+                    }else{
+                        $("#like-icon").removeClass().addClass('far fa-heart like-animation'); //fa-heart fas colr
+                        $("#like_count").html(parseInt($("#like_count").html())-1);
+
+                        $.ajax({
+                            url: '/unlike_count.php',
+                            type: 'PUT',
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            data: JSON.stringify({"img_id" : $("#like-icon").data("img_id")}),
+                            success: function(data) {
+                                // $(that).toggleClass('far fas colr'); fa-heart fas colr
+                                isLiked = false;
+                                event.target.style.pointerEvents = 'auto';
+                                shouldExecute=true;
+                                setTimeout(() => {
+
+                                    $("#like-icon").removeClass("like-animation");
+
+                                }, 1000);
+
+                            }
+                        });
 
                     }
-                });
+                }
+            };
 
-            }else{
-                $("#like-icon").removeClass().addClass('far fa-heart like-animation'); //fa-heart fas colr
-                $("#like_count").html(parseInt($("#like_count").html())-1);
-
+            function downloadImage(url){
+                var link = document.createElement("a");
+                link.href = url;
+                link.download="";
+                link.click();
                 $.ajax({
-                url: '/unlike_count.php',
-                type: 'PUT',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                data: JSON.stringify({"img_id" : $("#like-icon").data("img_id")}),
-                success: function(data) {
-                    // $(that).toggleClass('far fas colr'); fa-heart fas colr
-                    
-                    // setTimeout(() => {
-                        
-                        // $("#like-icon").removeClass("like-animation");
-                        isLiked = false;
-                        event.target.style.pointerEvents = 'auto';
-                    // }, 1000);
-
-                    }
-                });
-
-            }
+                    url: '/download_count.php',
+                    type: 'PUT',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data:  JSON.stringify({"img_id" : $("#like-icon").data("img_id")}),
+                    success: function(data) {
 
 
-            
+                        $("#download_count").html(parseInt($("#download_count").html())+1);
 
-
-        };
-
-        function downloadImage(url){
-            var link = document.createElement("a");
-            link.href = url;
-            link.download="";
-            link.click();
-            $.ajax({
-                url: '/download_count.php',
-                type: 'PUT',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                data:  JSON.stringify({"img_id" : $("#like-icon").data("img_id")}),
-                success: function(data) {
-                    
-
-                    $("#download_count").html(parseInt($("#download_count").html())+1);
-                    
                     },
 
                     error: function (jqXHR, exception) {
@@ -264,7 +288,13 @@ function thousandsCurrencyFormat($num)
                     }
                 });
 
-        }
-</script>
+            }
+        </script>
+
+        <script src="https://rawgit.com/toddmotto/echo/master/dist/echo.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+        <script src="bootstrap-lazy-load.js"></script>
     </body>
 </html>
